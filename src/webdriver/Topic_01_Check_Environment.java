@@ -19,24 +19,24 @@ public class Topic_01_Check_Environment {
 	public void beforeClass() {
 		if (osName.contains("Mac OS")) {
 			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
-			
+
 		} else {
 			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 
 		}
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	
+
 	}
 
 	@Test
 	public void TC_01_() {
-		
+
 	}
 
 	@Test
 	public void TC_02_() {
-		
+
 	}
 
 	@Test
