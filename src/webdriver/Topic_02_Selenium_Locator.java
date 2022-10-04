@@ -103,6 +103,6 @@ public class Topic_02_Selenium_Locator {
 
 	@AfterClass
 	public void afterClass() {
-		//driver.quit();
+		driver.quit();
 	}
 }
