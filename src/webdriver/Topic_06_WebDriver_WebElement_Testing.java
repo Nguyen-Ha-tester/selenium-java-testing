@@ -56,10 +56,38 @@ public class Topic_06_WebDriver_WebElement_Testing {
 	}
 
 	@Test
-	public void TC_03_() {
-
+	public void TC_03_Navigate_Function() {
+		driver.get("http://live.techpanda.org/");
+		
+		driver.findElement(By.xpath("//span[text()='Account' and @class='label']")).click();
+		
+		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account']")).click();
+		
+		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
+		String URL3 = driver.getCurrentUrl();
+		Assert.assertEquals(URL3, "http://live.techpanda.org/customer/account/create/");
+		
+		driver.navigate().back();
+		
+		String URL4 = driver.getCurrentUrl();
+		Assert.assertEquals(URL4, "http://live.techpanda.org/index.php/customer/account/login/");
+		
+		driver.navigate().forward();
+		
+		String Text2 = driver.findElement(By.xpath("//meta[@http-equiv='Content-Type']/following-sibling::title")).getText();
+		Assert.assertEquals(Text2, "Create New Customer Account");
+		
 	}
-
+	@Test
+	public void TC_03_Get_Page_Source_Code() {
+		driver.get("http://live.techpanda.org/");
+		
+		driver.findElement(By.xpath("//span[text()='Account' and @class='label']")).click();
+		
+		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account']")).click();
+		
+	
+	}
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
