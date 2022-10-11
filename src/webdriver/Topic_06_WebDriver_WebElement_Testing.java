@@ -32,60 +32,46 @@ public class Topic_06_WebDriver_WebElement_Testing {
 	@Test
 	public void TC_01_Verify_URL() {
 		driver.get("http://live.techpanda.org/");
-		driver.findElement(By.xpath("//span[text()='Account' and @class='label']")).click();
-		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account']")).click();
-		String URL1 = driver.getCurrentUrl();
-		Assert.assertEquals(URL1, "http://live.techpanda.org/index.php/customer/account/login/");
+		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+		Assert.assertEquals(driver.getCurrentUrl(), "http://live.techpanda.org/index.php/customer/account/login/");
 		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
-		String URL2 = driver.getCurrentUrl();
-		Assert.assertEquals(URL2, "http://live.techpanda.org/index.php/customer/account/create/");
+		Assert.assertEquals(driver.getCurrentUrl(), "http://live.techpanda.org/index.php/customer/account/create/");
 
 	}
 
 	@Test
 	public void TC_02_Verify_Title() {
 		driver.get("http://live.techpanda.org/");
-		driver.findElement(By.xpath("//span[text()='Account' and @class='label']")).click();
-		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account']")).click();
-		String Text = driver.findElement(By.xpath("//meta[@http-equiv='Content-Type']/following-sibling::title")).getText();
-		Assert.assertEquals(Text, "Customer Login");
+		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+		Assert.assertEquals(driver.getTitle(), "Customer Login");
 		
 		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
-		String Text2 = driver.findElement(By.xpath("//meta[@http-equiv='Content-Type']/following-sibling::title")).getText();
-		Assert.assertEquals(Text2, "Create New Customer Account");
+		Assert.assertEquals(driver.getTitle(), "Create New Customer Account");
 	}
 
 	@Test
 	public void TC_03_Navigate_Function() {
 		driver.get("http://live.techpanda.org/");
-		
-		driver.findElement(By.xpath("//span[text()='Account' and @class='label']")).click();
-		
-		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account']")).click();
-		
+		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();		
 		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
-		String URL3 = driver.getCurrentUrl();
-		Assert.assertEquals(URL3, "http://live.techpanda.org/customer/account/create/");
+		Assert.assertEquals(driver.getCurrentUrl(), "http://live.techpanda.org/index.php/customer/account/create/");
 		
 		driver.navigate().back();
-		
-		String URL4 = driver.getCurrentUrl();
-		Assert.assertEquals(URL4, "http://live.techpanda.org/index.php/customer/account/login/");
+		Assert.assertEquals(driver.getCurrentUrl(), "http://live.techpanda.org/index.php/customer/account/login/");
 		
 		driver.navigate().forward();
 		
-		String Text2 = driver.findElement(By.xpath("//meta[@http-equiv='Content-Type']/following-sibling::title")).getText();
-		Assert.assertEquals(Text2, "Create New Customer Account");
+		Assert.assertEquals(driver.getTitle(), "Create New Customer Account");
 		
 	}
 	@Test
-	public void TC_03_Get_Page_Source_Code() {
+	public void TC_04_Get_Page_Source_Code() {
 		driver.get("http://live.techpanda.org/");
-		
-		driver.findElement(By.xpath("//span[text()='Account' and @class='label']")).click();
-		
-		driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account']")).click();
-		
+		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+		Assert.assertTrue(driver.getPageSource().contains("Login or Create an Account"));
+		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
+		Assert.assertTrue(driver.getPageSource().contains("Create an Account"));
+
 	
 	}
 	@AfterClass
