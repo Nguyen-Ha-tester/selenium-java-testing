@@ -1,7 +1,5 @@
 package webdriver;
 
-import static org.testng.Assert.assertEquals;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -238,7 +236,7 @@ public class Topic_07_WebDriver_WebElement_Testing2 {
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char not-completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char not-completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
-		
+
 		// Password-nhập chữ thường
 		Password.clear();
 		Password.sendKeys("a");
@@ -248,7 +246,7 @@ public class Topic_07_WebDriver_WebElement_Testing2 {
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char not-completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char not-completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
-		
+
 		// Password-nhập chữ in hoa
 		Password.clear();
 		Password.sendKeys("A");
@@ -267,11 +265,10 @@ public class Topic_07_WebDriver_WebElement_Testing2 {
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char not-completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
-		
+
 		// Password-nhập tối thiểu 8 kí tự
 		Password.clear();
 		Password.sendKeys("12345678");
-		sleepInSecond(3);
 		sleepInSecond(3);
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='number-char completed']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='lowercase-char not-completed']")).isDisplayed());
@@ -283,14 +280,17 @@ public class Topic_07_WebDriver_WebElement_Testing2 {
 
 	@AfterClass
 	public void afterClass() {
-		//driver.quit();
-		//Sleep cứng (static wait)
+		// driver.quit();
+	}
+
+      	//Sleep cứng (static wait)
+		//Chú ý hàm này phải bỏ ngoài block afterclasshttps://opensource-demo.orangehrmlive.com/
 	public void sleepInSecond (long timeInSecond) {
-			try {
-				Thread.sleep(timeInSecond * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-}
+	try {
+		Thread.sleep(timeInSecond * 1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	
+	}
 }
 }
