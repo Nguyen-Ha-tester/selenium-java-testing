@@ -45,32 +45,20 @@ public class Topic_08_Textbox_TextArea {
 		driver.findElement(By.xpath("//input[@name='firstName']")).sendKeys("Ha");
 		driver.findElement(By.xpath("//input[@name='lastName']")).sendKeys("Nguyen");
 		String EmployeeID = driver.findElement(By.xpath("//div[@class='oxd-input-group__label-wrapper']/following-sibling::div//input[@class='oxd-input oxd-input--active']")).getAttribute("value");
+		sleepInSecond(6);
 		
 		//Click Save để lưu input
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		sleepInSecond(6);
 		
-		//Verify xem có đến đúng địa chỉ Personal Detail sau khi ấn Save không
-		Assert.assertEquals(driver.getCurrentUrl(),"https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPersonalDetails/empNumber/64");
+		//Verify có lưu đúng dữ liệu nhập vào hay không?
+		Assert.assertEquals(driver.getCurrentUrl().contains("pim/viewPersonalDetails/empNumber/"),"pim/viewPersonalDetails/empNumber/");
 		Assert.assertEquals(driver.findElement(By.xpath("//input[@name='firstName']")).getAttribute("value"),"Ha");
 		Assert.assertEquals(driver.findElement(By.xpath("//input[@name='lastName']")).getAttribute("value"),"Nguyen");
 		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"), EmployeeID);
 	}
 
-	@Test
-	public void TC_02_() {
 
-	}
-
-	@Test
-	public void TC_03_() {
-
-	}
-
-	@Test
-	public void TC_04_() {
-
-	}
 
 	@AfterClass
 	public void afterClass() {
