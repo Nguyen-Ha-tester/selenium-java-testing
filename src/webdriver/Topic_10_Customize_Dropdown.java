@@ -53,7 +53,7 @@ public class Topic_10_Customize_Dropdown {
 	}
 
 	@Test
-	public void TC_01_CustomizeDropdown() {
+	public void TC_01_Jquery1() {
 
 		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 		
@@ -132,7 +132,7 @@ public class Topic_10_Customize_Dropdown {
 	}
 	
 	@Test
-	public void TC_02_CustomizeDropdown2 () {
+	public void TC_02_Jquery2 () {
 	
 		driver.get("https://www.honda.com.vn/o-to/du-toan-chi-phi");
 		
@@ -161,6 +161,24 @@ public class Topic_10_Customize_Dropdown {
 		Assert.assertEquals(select.getFirstSelectedOption().getText(),"Khu vực II");
 	}
 	
+	@Test
+	public void TC_03_ReactJS() {
+		
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
+		selectInCustomDropdown("div.ui.fluid.selection.dropdown", "div.ui.fluid.selection.dropdown div.visible.menu.transition>div", "Elliot Fu");
+		sleepInSecond(5);
+		Assert.assertEquals(driver.findElement(By.cssSelector("div.ui.fluid.selection.dropdown")).getText(),"Elliot Fu");
+
+	}
+	
+	@Test
+	public void TC_03_VueJS() {
+		driver.get("https://mikerodham.github.io/vue-dropdowns/");
+		selectInCustomDropdown("li.dropdown-toggle", "ul.dropdown-menu>li", "Second Option");
+		sleepInSecond(3);
+		Assert.assertEquals(driver.findElement(By.cssSelector("li.dropdown-toggle")).getText(), "Second Option");
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
@@ -183,16 +201,20 @@ public class Topic_10_Customize_Dropdown {
 		List<WebElement> allItem = driver.findElements(By.cssSelector(childLocator));
 		for (WebElement item : allItem) {
 			String textActualItem = item.getText();
-			if (textActualItem.equals("textExpectedItem")) {
+			if (textActualItem.equals(textExpectedItem)) {
 				item.click();
 		break;
 			}
 		}
-		//Assert.assertEquals(driver.findElement(By.cssSelector(textVerify)).getText(),textExpectedItem);
+		//Assert.assertEquals(driver.findElement(By.cssSelector(textVerify)).getText(),textExpectedItem); Hà không nên gộp hàm này vì nếu gộp là sai logic, bad practice. 
+		// Về mặt coding thì đây là bad practice
+		//Nếu có viết thành hàm thì mỗi hàm chỉ nên xử lý 1 tính năng, chứ k phải tính ít hay nhiều steps
+		//Hàm selectInCustomDropdown làm 1 tính năng: chọn ietm cho 1 dropdown
+		//Hàm verify item đã được chọn thì có viết hàm thì nên viết thành 1 hàm riêng như "isDropdownItemSelected(), k đưa chung vào hàm select. 
 	}
 
 	// Sleep cứng (static wait)
-	// Chú ý hàm này phải bỏ ngoài block
+	// Chú ý hàm WebdriverWait này phải bỏ ngoài block
 	// afterclasshttps://opensource-demo.orangehrmlive.com/
 	public void sleepInSecond(long timeInSecond) {
 		try {
