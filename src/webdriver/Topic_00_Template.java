@@ -29,6 +29,10 @@ public class Topic_00_Template {
 		// Khởi tao driver để thao tác trên trình duyệt firefox
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Cái implicitWait nó là thời gian dùng để findElement 
+		//Nếu không có thì khi chạy lệnh findElement nó search k ra thì sẽ báo fail luôn
+		//Còn nếu có thời gian thì sau 0.5s nó sẽ search lại thêm 1 lần nữa 
+		//Nếu máy load chậm do mạng mà k có implicitWait thì khả năng fail sẽ rất cao á
 
 	}
 

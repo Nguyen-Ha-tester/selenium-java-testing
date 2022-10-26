@@ -10,7 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -50,7 +52,7 @@ public class Topic_10_Customize_Dropdown {
 
 	}
 
-	
+	@Test
 	public void TC_01_CustomizeDropdown() {
 
 		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
@@ -60,24 +62,25 @@ public class Topic_10_Customize_Dropdown {
 		/*Number*/
 		selectInCustomDropdown("span#number-button", "ul#number-menu div", "1");
 		sleepInSecond(5);
-		// tá đaaaaaaaaaa vẫn là nghịch trong dropdown Select a number nè
-		selectInCustomDropdown("span#number-button", "ul#number-menu div", "3");
-		sleepInSecond(5);
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#number-button>span.ui-selectmenu-text")).getText(), "1");
 		
 		// tá đaaaaaaaaaa
 		// Dùng cho các dropdown khác luôn
 		/*Speed*/
 		selectInCustomDropdown("span#speed-button", "ul#speed-menu div", "Fast"); // Dùng cho các dropdown khác luôn
 		sleepInSecond(10);
-		
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#speed-button>span.ui-selectmenu-text")).getText(), "Fast");
+
 		/*File*/
 		selectInCustomDropdown("span#files-button", "ul#files-menu div", "jQuery.js"); // Dùng cho các dropdown khác luôn
 		sleepInSecond(5);
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#files-button>span.ui-selectmenu-text")).getText(), "jQuery.js");
 
 		/*Title*/
 		selectInCustomDropdown("span#salutation-button", "ul#salutation-menu div", "Mrs."); // Dùng cho các dropdown khác luôn
 		sleepInSecond(5);
-		
+		Assert.assertEquals(driver.findElement(By.cssSelector("span#salutation-button>span.ui-selectmenu-text")).getText(), "Mrs.");
+
 		
 		
 		//1 - Click vào arrow icon (hoặc icon nào đó trong dropdown box) để các option xổ ra
@@ -120,6 +123,9 @@ public class Topic_10_Customize_Dropdown {
 			break;
 					}	
 				}
+		// 7 - Verify laị 1 lần nữa xem giá trị mk click đã được hiện lên thật chưa
+			Assert.assertEquals(driver.findElement(By.cssSelector("span#number-button>span.ui-selectmenu-text")).getText(),"7");
+		
 		sleepInSecond(5);
 		
 		
@@ -130,15 +136,29 @@ public class Topic_10_Customize_Dropdown {
 	
 		driver.get("https://www.honda.com.vn/o-to/du-toan-chi-phi");
 		
-		scrollToElement("button#selectize-input");
+		//Scroll
+		scrollToElement("img.image-background"); // Gõ scrollToElement("locator đến vị trí locator muốn xem");
 		sleepInSecond(5);
 		
+		//Select 1
 		selectInCustomDropdown("button#selectize-input", "button#selectize-input+div>a", "ACCORD Trắng");
 		sleepInSecond(5);
-		selectInCustomDropdown("div.choose-city.d-flex", "div.choose-city.d-flex option", "TP. Hồ Chí Minh");
+		Assert.assertEquals(driver.findElement(By.cssSelector("button#selectize-input")).getText(),"ACCORD Trắng");
+
+		//Scroll
+		scrollToElement("img.img-dtcp.d-block ");
+		
+		//Select 2
+		Select select = new Select(driver.findElement(By.cssSelector("select#province")));
+		select.selectByVisibleText("Bắc Giang");
 		sleepInSecond(5);
-		selectInCustomDropdown("select#registration_fee", "select#registration_fee>option", "Khu vực I");
+		Assert.assertEquals(select.getFirstSelectedOption().getText(),"Bắc Giang");
+
+		//Select 3
+		select = new Select(driver.findElement(By.cssSelector("select#registration_fee")));
+		select.selectByVisibleText("Khu vực II");
 		sleepInSecond(5);
+		Assert.assertEquals(select.getFirstSelectedOption().getText(),"Khu vực II");
 	}
 	
 	@AfterClass
@@ -168,7 +188,7 @@ public class Topic_10_Customize_Dropdown {
 		break;
 			}
 		}
-
+		//Assert.assertEquals(driver.findElement(By.cssSelector(textVerify)).getText(),textExpectedItem);
 	}
 
 	// Sleep cứng (static wait)
