@@ -84,14 +84,11 @@ public class Topic_07_WebDriver_WebElement_Testing2 {
 	@Test
 	public void TC_02_isenabled() {
 		// Phân biêt:
-		// Gọi 1 element là is enabled khi có thể tương tác được lên nó và ngược lại với
-		// is disabled
-		// Gọi 1 element là is displayed khi có thể nhìn thấy nó và ngược lại với is not
-		// displayed
-		// is enabled -> true
-		// is disabled -> false
-		// Phạm vi áp dụng: Tất cả các loại element (textbox, option, field, button,
-		// link, radio....)
+			// Gọi 1 element là is enabled khi có thể tương tác được lên nó và ngược lại với is disabled
+			// Gọi 1 element là is displayed khi có thể nhìn thấy nó và ngược lại với is not displayed
+			// is enabled -> true
+			// is disabled -> false
+			// Phạm vi áp dụng: Tất cả các loại element (textbox, option, field, button, link, radio....)
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		// Email
 		WebElement EmailField = driver.findElement(By.cssSelector("input#mail"));
