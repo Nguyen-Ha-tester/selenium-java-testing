@@ -37,8 +37,44 @@ public class Topic_00_Template {
 	}
 
 	@Test
-	public void TC_01_() {
-		sleepInSecond(5);
+	public void TC_01_JotForm() {
+		
+		driver. get ("https://automationfc.github.io/multiple-fields/");
+		//Chọn checkbox: Cancer và Fainting Spells
+		isElementSelected("//label[text()=' Cancer ']/preceding-sibling::input");
+		isElementSelected("//label[text()=' Fainting Spells ']/preceding-sibling::input");
+
+		// Verify đc chọn thành công
+		Assert.assertTrue(driver.findElement(By.xpath("//label[text()=' Cancer ']/preceding-sibling::input")).isSelected());
+		Assert.assertTrue(driver.findElement(By.xpath("//label[text()=' Fainting Spells ']/preceding-sibling::input")).isSelected());
+
+		
+		// Chọn Radio: 5+ days và 1-2 glasses/day
+		driver.findElement(By.xpath("//input[@value='5+ days']")).click();
+		driver.findElement(By.xpath("//input[@value='1-2 glasses/day']")).click();
+
+		// Verify đc chọn thành công
+		Assert.assertTrue(driver.findElement(By.xpath("//input[@value='5+ days']")).isSelected());
+		Assert.assertTrue(driver.findElement(By.xpath("//input[@value='1-2 glasses/day']")).isSelected());
+
+		// Bỏ chọn checkbox: click tiếp one time nữa để bỏ chọn
+		driver.findElement(By.xpath("//label[text()=' Cancer ']/preceding-sibling::input")).click(); 
+		driver.findElement(By.xpath("//label[text()=' Fainting Spells ']/preceding-sibling::input")).click();
+		
+		// Verify bỏ  chọn thành công
+		Assert.assertFalse(driver.findElement(By.xpath("//input[@value='5+ days']")).isSelected());
+		Assert.assertFalse(driver.findElement(By.xpath("//input[@value='1-2 glasses/day']")).isSelected());
+		
+		// Bỏ Chọn Radio: 5+ days và 1-2 days: thì phải chọn 1 radio khác nó sẽ bỏ chọn radio đang chọn đi
+		driver.findElement(By.xpath("//input[@value='3-4 days']")).click();
+		driver.findElement(By.xpath("//input[@value='3-4 glasses/day']']")).click();
+
+		// Verify bỏ  chọn thành công
+		Assert.assertFalse(driver.findElement(By.xpath("//input[@value='5+ days']")).isSelected());
+		Assert.assertFalse(driver.findElement(By.xpath("//input[@value='1-2 glasses/day']")).isSelected());
+
+		
+		
 	}
 
 	@Test
@@ -50,7 +86,18 @@ public class Topic_00_Template {
 	public void TC_03_() {
 		sleepInSecond(5);
 	}
-
+	
+	// Để đảm bảo là trạng thái ban đầu trước khi click radio/checkbox
+	public void isElementSelected(String xpathLocator) {
+		// ktra trc radio/checkbox đã đc chọn hay chưa
+		//Nếu chọn rồi thì k cần click nữa
+		// Nếu chưa ch thì click vào -> đc chọn
+		
+		if (!driver.findElement(By.xpath(xpathLocator)).isSelected()) { //Nếu If trả về true thì k vào click nữa
+			driver.findElement(By.xpath(xpathLocator)).click (); } // Nếu ktra if trả về false thì click 
+	
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
