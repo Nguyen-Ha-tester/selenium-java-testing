@@ -98,7 +98,6 @@ public class Topic_12_Radio_Checkbox {
 		
 	}
 	
-	@Test
 	public void TC_02_JotForm_Select_All_Checkbox() {
 		driver. get ("https://automationfc.github.io/multiple-fields/");
 		
@@ -133,6 +132,16 @@ public class Topic_12_Radio_Checkbox {
 				} 
 	}
 	
+	@Test
+	public void TC_03_Select_All() {
+		driver.get("https://demos.telerik.com/kendo-ui/checkbox/index");
+		scrollToElement("div#demo-runner");
+		isElementSelected("//label[text()='Dual-zone air conditioning']/preceding-sibling::input");
+		Assert.assertTrue(VerifyisElementSelected("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));
+		unCheckCheckBox("//label[text()='Dual-zone air conditioning']/preceding-sibling::input");
+		Assert.assertFalse(VerifyisElementSelected("//label[text()='Dual-zone air conditioning']/preceding-sibling::input"));
+;
+	}
 	// Hàm function: Kiểm tra xem trước khi thao tác vào Radio/Checkbox thì trạng thái của nó là ntn, đã click trước đó hay chưa
 	public void isElementSelected(String xpathLocator) {
 		// ktra trc radio/checkbox đã đc chọn hay chưa và đặc biệt là radio/checkbox đó có enable không 
