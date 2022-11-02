@@ -37,13 +37,15 @@ public class Topic_15_Action_UserInteraction {
 		
 		//Hover vào element
 		action.moveToElement(driver.findElement(By.cssSelector("input#age"))).perform(); // cuối phải có perform thì mới chạy được
-		
+		//sleepInSecond(3);
 		//Bắt tooltip trên window: ctrl \
 		
 		//Verify tooltip xuất hiện
 		Assert.assertEquals(driver.findElement(By.cssSelector("div.ui-tooltip-content")).getText(),"We ask for your age only for statistical purposes.");
-		}
+		
 		//** Chú ý: Khi đang run test, k đc di chuyển chuột hoặc dùng bàn phím
+		
+	}
 	@Test
 	public void TC_02_() {
 	}
