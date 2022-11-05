@@ -28,7 +28,7 @@ public class Topic_17_Fixed_Popup {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	public void TC_01_Fixed_Popup_I() {
+	public void TC_01_Fixed_Popup_In_HTML() {
 		driver.get("https://ngoaingu24h.vn/");
 		
 		//Đặt biến cho Popup Đăng nhập
@@ -36,13 +36,18 @@ public class Topic_17_Fixed_Popup {
 		
 		//Mới vào page thì verify popup này chưa hiển thị
 		Assert.assertFalse(driver.findElement(loginPopup).isDisplayed());
+		//Hoặc
+		//	Assert.assertEquals(driver.findElement(loginPopup).size(),0);
+
 		
 		//Click vào button Đăng nhập:
 		driver.findElement(By.cssSelector("button.login_")).click();
 		
 		//Lúc này thì verify popup Login hiển thị
 		Assert.assertTrue(driver.findElement(loginPopup).isDisplayed());
-		
+		//Hoặc
+		//	Assert.assertEquals(driver.findElement(loginPopup).size(),1);
+
 		//Điền tên và password đăng nhập
 		driver.findElement(By.xpath("//div[@id='modal-login-v1' and @style]//input[@id='account-input']")).sendKeys("automationfc");
 		driver.findElement(By.xpath("//div[@id='modal-login-v1' and @style]//input[@id='password-input']")).sendKeys("automationfc");
@@ -55,7 +60,7 @@ public class Topic_17_Fixed_Popup {
 	}
 
 	@Test
-	public void TC_02_Tiki() {
+	public void TC_02_Fixed_Popup_Not_In_HTML() {
 		driver.get("https://tiki.vn/");
 		
 		//Đây là trường hợp locator của pop up không xuất hiện khi popuo bị closed/ chưa xuất hiện. Sẽ phải Assert nếu popup k xuất hiện, tức locator size()=0 thì sẽ click nút ĐĂng nhập. Nhớ là phải dùng 
