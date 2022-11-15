@@ -32,7 +32,7 @@ public class Topic_20_Window_Tab {
 		driver = new FirefoxDriver();
 		jsExecutor = (JavascriptExecutor) driver; 
 		alert = driver.switchTo().alert();
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	public void TC_01_Window_AUTOMATIONFC_ID() {
@@ -159,7 +159,7 @@ public class Topic_20_Window_Tab {
 		
 		closeAllWindowWithoutParent(parentID);
 		
-		switchToWindowByTitle("Mobile");
+		switchToWindowByID(parentID);
 		sleepInSecond(3);
 		
 		driver.findElement(By.xpath("//a[text()='Clear All']")).click();
