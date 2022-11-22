@@ -12,10 +12,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.Alert;
 
-public class teacher_huy {
+public class teacher_huy<Alert> {
 	WebDriver driver;
-	JavascriptExecutor jsExecutor;s
+	JavascriptExecutor jsExecutor;
 	Alert alert;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
@@ -31,7 +32,7 @@ public class teacher_huy {
 		}
 		driver = new FirefoxDriver();
 		jsExecutor = (JavascriptExecutor) driver; 
-		alert = driver.switchTo().alert();
+		alert = (Alert) driver.switchTo().alert();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 	}
@@ -55,16 +56,15 @@ public class teacher_huy {
 
 	
 	//Accept alert
-	alert.accept();
+	//alert.accept();
 	}
 
-	private void scrollToElement(String string) {
-		// TODO Auto-generated method stub
+//	private void scrollToElement(String string) {
 		
-	}
+	//}
 
 	// Hàm scroll trên browser
-	scrollToElement("img.img-dtcp.d-block ");
+	//scrollToElement("img.img-dtcp.d-block ");
 
 	public void scrollToElement(String cssLocator) {
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.cssSelector(cssLocator)));
