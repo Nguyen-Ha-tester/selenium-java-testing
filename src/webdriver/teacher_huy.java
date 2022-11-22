@@ -71,8 +71,22 @@ public class teacher_huy<Alert> {
 		// Nếu true thì scroll lên mép trên
 		// Nếu false thì scroll xuống mép dưới
 	}
+	
+	// 1- Load 1 lần 1 file
+		//	driver.findElement(By.xpath("//input[@type='file']")).sendKeys(filePath1);
+		//	sleepInSecond(3);
+		//	driver.findElement(By.xpath("//input[@type='file']")).sendKeys(filePath2);
+		//	sleepInSecond(3);
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
+	}
+	public void sleepInSecond(long timeInSecond) {
+		try {
+			Thread.sleep(timeInSecond * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+
+		}
 	}
 }
