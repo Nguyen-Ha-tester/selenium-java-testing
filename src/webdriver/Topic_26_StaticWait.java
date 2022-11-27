@@ -10,7 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_25_ImplicitWait {
+public class Topic_26_StaticWait {
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
@@ -25,42 +25,35 @@ public class Topic_25_ImplicitWait {
 
 		}
 		driver = new FirefoxDriver();
+		driver.get("https://automationfc.github.io/dynamic-loading/");
+		driver.manage().window().maximize();
 
-		// 1 - implicitwait chỉ ảnh hưởng trực tiếp tới 2 hàm: findElement và findElements => Xem 3 testcase dưới
-		// 2 - Trường hợp thêm ngoại lệ
-			// ImplicitWait được set ở đâu thì nó sẽ apply từ đó trở đi
-			// Nếu bị gán lại thì sẽ dùng cái giá trị mới được gán/ không dùng giá trị cũ
-		driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
 
 	}
 
 	@Test
 	public void TC_01_Not_Enough_Time() {
-		
-		driver.get("https://automationfc.github.io/dynamic-loading/");
-		
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 	
 		//Click vào Start button
 		driver.findElement(By.cssSelector("div#start button")).click();
 
-		//Thời gian loading... là 5s nhưng thời gian implicitWait là 2s => khi tìm Hello World thì sẽ không kịp tìm thấy trong 2s
+		// Thiếu thời gian
+		sleepInSecond(3);
+		
+		//Get text & verify
 		Assert.assertTrue(driver.findElement(By.cssSelector("div#finish h4")).isDisplayed());
-
-
 
 	}
 
 	@Test
 	public void TC_02_Enough_Time() {
-		driver.get("https://automationfc.github.io/dynamic-loading/");
-		
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		
 		//Click vào Start button
 		driver.findElement(By.cssSelector("div#start button")).click();
+		
+		// Đủ thời gian
+		sleepInSecond(5);
 
-		//Thời gian loading... là 5s =>  thời gian implicitWait là 5s => Đủ thời gian tìm Hello World
+		//Get text & verify
 		Assert.assertTrue(driver.findElement(By.cssSelector("div#finish h4")).isDisplayed());
 
 
@@ -68,16 +61,15 @@ public class Topic_25_ImplicitWait {
 
 	@Test
 	public void TC_03_More_Time() {
-		driver.get("https://automationfc.github.io/dynamic-loading/");
-		
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		//Click vào Start button
 		driver.findElement(By.cssSelector("div#start button")).click();
 
-		//Thời gian loading... là 5s =>  thời gian implicitWait là 10s => Đủ thời gian tìm Hello World, không cần dùng hết 10s
-		Assert.assertTrue(driver.findElement(By.cssSelector("div#finish h4")).isDisplayed());
+		// Thừa thời gian
+		sleepInSecond(15);
 
+		// Get text & verify
+		Assert.assertTrue(driver.findElement(By.cssSelector("div#finish h4")).isDisplayed());
 
 	}
 
@@ -85,5 +77,12 @@ public class Topic_25_ImplicitWait {
 	public void afterClass() {
 		driver.quit();
 	}
+	public void sleepInSecond(long timeInSecond) {
+		try {
+			Thread.sleep(timeInSecond * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 
+		}
+	}
 }
