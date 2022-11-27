@@ -16,7 +16,13 @@ public class Topic_27_ExplicitWait {
 	String osName = System.getProperty("os.name");
 	
 	WebDriverWait explicitWait;
+	// Đặt file name
+	String fileName1 = "1.jpg";
+	String fileName2 = "2.png";
 
+	// Đặt file path
+	String filePath1 = projectPath + "\\UploadFile\\" + fileName1;
+	String filePath2 = projectPath + "\\UploadFile\\" + fileName2;
 	@BeforeClass
 	public void beforeClass() {
 		if (osName.contains("Mac OS")) {
@@ -38,7 +44,6 @@ public class Topic_27_ExplicitWait {
 
 	}
 
-	@Test
 	public void TC_01_Not_Enough_Time() {
 		explicitWait = new WebDriverWait(driver, 1); //Apply chỉ đợi 1s
 
@@ -54,7 +59,6 @@ public class Topic_27_ExplicitWait {
 
 	}
 
-	@Test
 	public void TC_02_Enough_Time() {
 		driver.get("https://automationfc.github.io/dynamic-loading/");
 
@@ -72,8 +76,6 @@ public class Topic_27_ExplicitWait {
 
 	}
 	
-
-	@Test
 	public void TC_03_More_Time() {
 		driver.get("https://automationfc.github.io/dynamic-loading/");
 
@@ -99,10 +101,44 @@ public class Topic_27_ExplicitWait {
 		//explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div#loading")));
 
 	@Test
+	public void TC_04_Upload_File() {
+		driver.get("https://gofile.io/uploadFiles");
+		
+		explicitWait = new WebDriverWait(driver, 100); //Apply đợi tận 10s
+
+		//Đợi cho nút add file được hiển thị
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='Add files']")));
+		
+		//Upload 1 lần nhiều file
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(filePath1 + "\n" + filePath2);
+		
+		//Wait cho tới khi icon loading biến mất
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.text-center i.fas.fa-spinner.fa-spin")));
+		
+		//Wait cho upload message thành công được visible, wait cho nó hiển thị rồi mới verify
+		//vì hàm dòng explicitWait ở trên trả về 1 webElement nên có thể đưa vào hàm verify được
+		//Wait + Verify message hiển thị đúng
+		Assert.assertEquals(explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.callout h5"))).getText(), "Your files have been successfully uploaded");
+		
+		//Wait cho button show file hiển thị
+		//vì hàm dòng explicitWait ở trên trả về 1 webElement nên có thể đưa vào hàm click được
+		//Wait + click button show file
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button#rowUploadSuccess-showFiles"))).click();
+		
+		//Wait cho các file name với button Download và nút Play được hiển thị
+		//vì hàm dòng explicitWait ở trên trả về 1 webElement nên có thể đưa vào hàm verify được
+		//Wait + Verify 2 nút Download và Play hiển thị
+		Assert.assertTrue(explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("//span[text()='2.png']/parent::a/parent::div/following-sibling::div//button[@id='contentId-download']"))).isDisplayed());
+		Assert.assertTrue(explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("//span[text()='3.png']/parent::a/parent::div/following-sibling::div//button[@id='contentId-download']"))).isDisplayed());
+		Assert.assertTrue(explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("//span[text()='2.png']/parent::a/parent::div/following-sibling::div//button[contains(@class,'contentPlay')]"))).isDisplayed());
+		Assert.assertTrue(explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("//span[text()='3.png']/parent::a/parent::div/following-sibling::div//button[contains(@class,'contentPlay')]"))).isDisplayed());
+		
+	}
+	@Test
 	public void TC_04_Ajax_Loading() {
 		driver.get("https://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
 	
-		explicitWait = new WebDriverWait(driver, 15);
+		explicitWait = new WebDriverWait(driver, 50);
 		
 		//Wait cho Date picker được hiển thị trong 15s (Sử dụng visibility)
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.calendarContainer")));

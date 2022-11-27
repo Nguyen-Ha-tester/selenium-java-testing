@@ -47,6 +47,7 @@ public class Topic_22_Upload_File {
 		driver.get("https://blueimp.github.io/jQuery-File-Upload/");
 		
 		// 1- Load 1 lần 1 file
+		//BẮT BUỘC: CHỈ SENDKEYS UPLOAD VÀO LOCATOR: //input[@type='file']
 		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(filePath1);
 		sleepInSecond(3);
 		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(filePath2);
