@@ -100,7 +100,7 @@ public class Topic_27_ExplicitWait {
 
 	@AfterClass
 	public void afterClass() {
-		//driver.quit();
+		driver.quit();
 	
 	}
 }
