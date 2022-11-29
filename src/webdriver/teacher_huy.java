@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -59,13 +60,11 @@ public class teacher_huy<Alert> {
 	//alert.accept();
 	}
 
-//	private void scrollToElement(String string) {
+	//private void scrollToElement(String string) {
 		
 	//}
-
 	// Hàm scroll trên browser
 	//scrollToElement("img.img-dtcp.d-block ");
-
 	public void scrollToElement(String cssLocator) {
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.cssSelector(cssLocator)));
 		// Nếu true thì scroll lên mép trên
@@ -77,6 +76,15 @@ public class teacher_huy<Alert> {
 		//	sleepInSecond(3);
 		//	driver.findElement(By.xpath("//input[@type='file']")).sendKeys(filePath2);
 		//	sleepInSecond(3);
+	
+	//HÀM WAIT
+		// 1- Implicit wait
+			//driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+		// 2- Explicit Wait:
+			//WebDriverWait explicitWait; // Khai báo
+			//explicitWait = new WebDriverWait(driver, 15); // Khởi tạo
+			//explicitWait = new WebDriverWait(driver, 1); //Apply chỉ đợi 1s
+		// 3- Static Wait:  sleepInSecond(3);
 	@AfterClass
 	public void afterClass() {
 		driver.quit();

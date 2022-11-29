@@ -14,6 +14,7 @@ public class Topic_27_ExplicitWait {
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
+	
 	WebDriverWait explicitWait;
 
 	@BeforeClass
@@ -83,7 +84,7 @@ public class Topic_27_ExplicitWait {
 
 		// Thiếu thời gian
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#finish h4")));
-
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div#loading")));
 		
 		//Get text & verify
 		Assert.assertTrue(driver.findElement(By.cssSelector("div#finish h4")).isDisplayed());
@@ -95,9 +96,38 @@ public class Topic_27_ExplicitWait {
 	//Ở trên ngoài wait cho element finish hiển thị (visibility):
 			//explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#finish h4")));
 	//Còn có thể wait cho element loading icon biến mất (invisibility):
-			//explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div#loading")));
+		//explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div#loading")));
 
-
+	@Test
+	public void TC_04_Ajax_Loading() {
+		driver.get("https://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
+	
+		explicitWait = new WebDriverWait(driver, 15);
+		
+		//Wait cho Date picker được hiển thị trong 15s (Sử dụng visibility)
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.calendarContainer")));
+		
+		//Verify trước ajax found thì dòng no selected dates hiển thị
+		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='No Selected Dates to display.']")).isDisplayed());
+		
+		//Chọn ngày bất kì tương ứng trong tháng/ năm hiện tại. Ở đây chọn ngày 29
+		// Trước khi chọn thì wait cho ngày 29 clickable
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='29']")));
+		driver.findElement(By.xpath("//a[text()='29']")).click();
+		
+		//Wait cho đến khi "ajax loading icon" không còn visisble (invisibility)
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("body>div>div.raDiv")));
+		
+		//Wait cho ngày vừa được chọn là ngày được phép click trở lại
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@class='rcSelected']/a")));
+		
+		//Verify cho selected dates là ngày đúng
+		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='Tuesday, November 29, 2022']")).isDisplayed());
+		
+		
+		
+		
+	}
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
