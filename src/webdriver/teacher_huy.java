@@ -94,7 +94,7 @@ public class teacher_huy<Alert> {
 			Thread.sleep(timeInSecond * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-
+  
 		}
 	}
 }
