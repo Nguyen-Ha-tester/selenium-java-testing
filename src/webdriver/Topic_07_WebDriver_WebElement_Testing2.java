@@ -82,7 +82,7 @@ public class Topic_07_WebDriver_WebElement_Testing2 {
 	}
 
 	@Test
-	public void TC_02_isenabled() {
+	public void TC_02_isEnabled() {
 		// Phân biêt:
 			// Gọi 1 element là is enabled khi có thể tương tác được lên nó và ngược lại với is disabled
 			// Gọi 1 element là is displayed khi có thể nhìn thấy nó và ngược lại với is not displayed

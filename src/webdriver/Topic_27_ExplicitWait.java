@@ -100,7 +100,6 @@ public class Topic_27_ExplicitWait {
 	//Còn có thể wait cho element loading icon biến mất (invisibility):
 		//explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div#loading")));
 
-	@Test
 	public void TC_04_Upload_File() {
 		driver.get("https://gofile.io/uploadFiles");
 		
@@ -138,7 +137,7 @@ public class Topic_27_ExplicitWait {
 	public void TC_04_Ajax_Loading() {
 		driver.get("https://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
 	
-		explicitWait = new WebDriverWait(driver, 50);
+		explicitWait = new WebDriverWait(driver, 90);
 		
 		//Wait cho Date picker được hiển thị trong 15s (Sử dụng visibility)
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.calendarContainer")));
@@ -155,7 +154,7 @@ public class Topic_27_ExplicitWait {
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("body>div>div.raDiv")));
 		
 		//Wait cho ngày vừa được chọn là ngày được phép click trở lại
-		explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@class='rcSelected']/a")));
+		//explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@class='rcSelected']/a")));
 		
 		//Verify cho selected dates là ngày đúng
 		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='Tuesday, November 29, 2022']")).isDisplayed());
