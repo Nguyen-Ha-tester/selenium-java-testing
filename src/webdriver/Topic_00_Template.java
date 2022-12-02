@@ -18,7 +18,6 @@ public class Topic_00_Template {
 
 		} else {
 			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-
 		}
 		driver = new FirefoxDriver();
 	}
