@@ -144,7 +144,10 @@ public class Topic_28_Mix_Implicit_Explicit {
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("haxinhgai")));
 		} catch (Exception e) {
 			System.out.println("Thoi gian ket thuc cua explicit = " + getTimeStamp());
-		}
+		}// Khi trộn lẫn implicit và explicit thì sẽ chạy theo kiểu async, tức là thằng implicit start trước 1 chút hoặc đồng thời với explicit => tổng thời gian cho case này là 10s (implicit)
+		// Nó sẽ chạy theo cơ thế async nên kết quả timestamp trả về có thể khác nhau mỗi lần chạy
+		
+		 
 	}
 	
 				
