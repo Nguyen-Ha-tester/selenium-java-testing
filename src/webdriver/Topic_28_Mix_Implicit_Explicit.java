@@ -56,6 +56,7 @@ public class Topic_28_Mix_Implicit_Explicit {
 	}
 	
 	public void TC_02_Element_Not_Found_Implicit() {
+
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		driver.get("https://www.facebook.com/");
@@ -75,14 +76,16 @@ public class Topic_28_Mix_Implicit_Explicit {
 				} catch (Exception e) {
 					System.out.println("Thoi gian ket thuc cua implicit = " + getTimeStamp());
 				}
-				}
+				
 			// Cách 2:
 				//List<WebElement> notFoundElement = driver.findElements(By.id("haxinhgai"));
 				//System.out.println("Thoi gian ket thuc cua implicit = " + getTimeStamp());
+			// Tương tự case implicit > explicit ở TC_03. Vì nếu k set explicit thì timeout cho explicit = 0
+
+	}
 		
-	@Test
 	public void TC_03_Element_Not_Found_Implicit_Explicit() {
-//case 1: implicit = explicit
+//case 1: implicit = explicit. Hết 5s
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		explicitWait = new WebDriverWait(driver, 5);
 		driver.get("https://www.facebook.com/");
@@ -103,7 +106,7 @@ public class Topic_28_Mix_Implicit_Explicit {
 		} catch (Exception e) {
 			System.out.println("Thoi gian ket thuc cua explicit = " + getTimeStamp());
 	}
-//case 1: implicit < explicit
+//case 1: implicit < explicit. Hết 10s
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		explicitWait = new WebDriverWait(driver, 10);
 		driver.get("https://www.facebook.com/");
@@ -124,7 +127,7 @@ public class Topic_28_Mix_Implicit_Explicit {
 		} catch (Exception e) {
 			System.out.println("Thoi gian ket thuc cua explicit = " + getTimeStamp());
 		}
-// case 1: implicit > explicit
+// case 1: implicit > explicit: Hết 10s
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		explicitWait = new WebDriverWait(driver, 5);
 		driver.get("https://www.facebook.com/");
@@ -150,7 +153,38 @@ public class Topic_28_Mix_Implicit_Explicit {
 		 
 	}
 	
-				
+	@Test
+	public void TC_04_Element_Not_Found_Explicit_By() {
+			explicitWait = new WebDriverWait(driver,5);
+			driver.get("https://www.facebook.com/");
+			// Explicti - By là tham số nhận vào của hàm explicit - visibilytyOfElementLocated(By)
+			System.out.println("Thoi gian bat dau cua explicit = " + getTimeStamp());
+			try {
+				explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("haxinhgai")));
+			} catch (Exception e) {
+				System.out.println("Thoi gian ket thuc cua explicit = " + getTimeStamp());
+			}
+			// Tương tự case implicit < explicit ở TC_03. Vì nếu k set implicit thì timeout cho implicit = 0
+			//Chạy hết: 5s vì tham số By k phải tìm element, chịu ảnh hưởng của hàm visibilityOfElementLocated
+			//Nhận timeOut của wait nào: explicit
+			//Testcase: Pass
+	}
+			
+	public void TC_05_Element_Not_Found_Explicit_Element() {
+		explicitWait = new WebDriverWait(driver,5);
+		driver.get("https://www.facebook.com/");
+
+		System.out.println("Thoi gian bat dau cua explicit = " + getTimeStamp());
+		try {
+			explicitWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("haxinhgai"))));
+		} catch (Exception e) {
+			System.out.println("Thoi gian ket thuc cua explicit = " + getTimeStamp());
+		}
+		
+		//Chạy hết: 0s (vì implicit k set nên sẽ = 0s)
+		//Nhận timeOut của wait nào: implicit
+		//Testcase: Pass
+	}
 	
 	
 	@AfterClass
