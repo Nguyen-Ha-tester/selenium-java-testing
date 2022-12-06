@@ -57,7 +57,8 @@ public class Topic_29_FluentWait {
 	public void TC_02_Fluent() {
 		driver.get("https://automationfc.github.io/dynamic-loading/");
 	
-	//Wait cho tim thay roi moi click Start button
+	// Fluent Wait cho tim thay roi moi click Start button, cứ 500milisecond sẽ tìm
+		// lại 1 lần, hết 15s sẽ faile và throw TimeoutException: Timed out after 15 seconds waiting for....
 		//Khai bao
 		FluentWait <WebDriver> fluentDriver;
 		//Khoi tao
@@ -66,20 +67,27 @@ public class Topic_29_FluentWait {
 			//Set tổng thời gian và tần số
 		fluentDriver.withTimeout(Duration.ofSeconds(15))
 			// cứ 1/3 giây lại check lại 1 lần
-		.pollingEvery(Duration.ofMillis(333)) //Đây chính là điểm khác biệt của fluent wait, có thể thay đổi tần suất
-		.ignoring(NoSuchElementException.class);
+		.pollingEvery(Duration.ofMillis(500)) //Đây chính là điểm khác biệt của fluent wait, có thể thay đổi tần suất
+		.ignoring(NoSuchElementException.class); // Phải lựa chọn NoSuchElementException của org.openqa.selenium
 		
 		//Apply điều kiện (có thể gộp luôn vào chaining actions ở trên, nhưng tách ra cho dễ hiểu
-		fluentDriver.until(new Function<WebDriver, WebElement>() {
+		WebElement startbutton = fluentDriver.until(new Function<WebDriver, WebElement>() {
 			@Override
 			public WebElement apply(WebDriver driver) {
 				// TODO Auto-generated method stub
-				return driver.findElement(By.cssSelector("div#start>button"));
+				return driver.findElement(By.cssSelector("div#start>buttn"));
 			}
 		});
+		startbutton.click();
 		
-}
+	}
+
+	// Để tiết kiệm công sức thì có thể viết hàm mới cho fluentwait
 		
+		public void findElement() {
+		 long alltime = 15; // 15 giây
+		 long pollingtime = 100; // 100 milisecond
+		}
 		
 	
 	@AfterClass
