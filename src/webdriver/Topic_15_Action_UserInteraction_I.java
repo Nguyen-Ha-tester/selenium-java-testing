@@ -35,6 +35,7 @@ public class Topic_15_Action_UserInteraction_I {
 		}
 		driver = new FirefoxDriver();
 		action = new Actions(driver);
+		driver.manage().window().maximize(); //Với hàm action thì nên full màn hình và k thao tác khi di chuột
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		}
 
