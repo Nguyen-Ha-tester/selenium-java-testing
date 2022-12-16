@@ -24,16 +24,52 @@ public class Topic_04_Parameter_Multiple_Browser {
 	@Parameters ("browser")
 	@BeforeClass
 	public void beforeClass(String browserName) {
+		//set up chạy cho cả 3 trình duyệt firefox - chrome - edge
+//		// If-else
+//		if (browserName.equals("firefox")) {
+//			if (osName.contains("Mac OS")) {
+//				System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
+//				
+//			} else {
+//				System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+//			}
+//			driver = new FirefoxDriver();
+//		} else  if (browserName.equals("chrome")) {
+//			if (osName.contains("Mac OS")) {
+//				System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
+//				
+//			} else {
+//				System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//			}
+//			driver = new ChromeDriver();
+//			
+//		} else if (browserName.equals("edge")) {
+//			if (osName.contains("Mac OS")) {
+//				System.setProperty("webdriver.msedge.driver", projectPath + "/browserDrivers/msedgedriver");
+//				
+//			} else {
+//				System.setProperty("webdriver.msedge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");
+//			}
+//			driver = new EdgeDriver();
+//
+//		} else {
+//			throw new RuntimeException ("Please input with correct browser name."); //RuntimeException có nghĩa là chạy lỗi phát là throw ngay
+//		}
 		
-		if (browserName.equals("firefox")) {
+		// Switch -case (tương tự if-else nhưng switchcase k cho phép lặp case và trông code có vẻ gọn hơn)
+		switch (browserName) {
+		case "firefox":
 			if (osName.contains("Mac OS")) {
 				System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 				
 			} else {
 				System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 			}
-			driver = new FirefoxDriver();
-		} else  if (browserName.equals("chrome")) {
+			driver = new FirefoxDriver();	
+			System.out.println("done testing on Firefox");
+
+			break;
+		case "chrome":
 			if (osName.contains("Mac OS")) {
 				System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
 				
@@ -41,19 +77,24 @@ public class Topic_04_Parameter_Multiple_Browser {
 				System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
 			}
 			driver = new ChromeDriver();
+			System.out.println("done testing on Chrome");
+			break;
 			
-		} else if (browserName.equals("edge")) {
+		case "edge":
 			if (osName.contains("Mac OS")) {
-				System.setProperty("webdriver.msedge.driver", projectPath + "/browserDrivers/msedgedriver");
+				System.setProperty("webdriver.edge.driver", projectPath + "/browserDrivers/msedgedriver");
 				
 			} else {
-				System.setProperty("webdriver.msedge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");
+				System.setProperty("webdriver.edge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");
 			}
 			driver = new EdgeDriver();
+			System.out.println("done testing on Edge");
+			break;
+		
 
+		default:
+			throw new RuntimeException ("Please input with correct browser name."); //RuntimeException có nghĩa là chạy lỗi phát là throw ngay
 		}
-		
-		
 		
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+	<!-- Biến "environment"" là biến global vì nó access xuyên suốt chương trình -->
+	<!-- Biến "browser"" là biến local vì nó access 1 test thôi, mỗi test dùng 1 biến local-->
+
+	<parameter name="environment" value="live" />
+	
+	//Chạy trên firefox
+	<test name="Run on FIREFOX">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="testng.Topic_05_Parameter_Multiple_Environment" />
+		</classes>
+	</test>
+	//Chạy trên chrome
+	<test name="Run on CHROME">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="testng.Topic_05_Parameter_Multiple_Environment" />
+		</classes>
+	</test>
+	//Chạy trên edge
+	<test name="Run on EDGE">
+		<parameter name="browser" value="edge" />
+		<classes>
+			<class name="testng.Topic_05_Parameter_Multiple_Environment" />
+		</classes>
+	</test>
+	
+	
+</suite>
