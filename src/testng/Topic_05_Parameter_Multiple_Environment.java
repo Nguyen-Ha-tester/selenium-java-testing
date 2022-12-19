@@ -1,5 +1,6 @@
 package testng;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -113,6 +114,7 @@ public class Topic_05_Parameter_Multiple_Environment {
 		driver.findElement(loginButton).click();
 		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='col-1']//p")).getText()
 				.contains("selenium_11_01@gmail.com"));
+		System.out.println("Thoi gian ket thuc cua method la = " + getTimeStamp());
 	}
 
 	public String getEnvironmentURL(String environmentName) {
@@ -131,5 +133,9 @@ public class Topic_05_Parameter_Multiple_Environment {
 	public void afterClass() {
 		driver.quit();
 	}
-
+	public String getTimeStamp() {
+		
+		Date date = new Date();
+		return date.toString();
+	}
 }

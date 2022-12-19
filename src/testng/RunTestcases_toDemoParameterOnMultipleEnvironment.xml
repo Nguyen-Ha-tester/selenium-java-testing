@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite parallel="false" name="Suite">
-	<!-- Biến "environment"" là biến global vì nó access xuyên suốt chương trình -->
-	<!-- Biến "browser"" là biến local vì nó access 1 test thôi, mỗi test dùng 1 biến local-->
+<suite parallel="tests" name="Suite" thread-count="3">
+	<!-- Set parallel cho test tức là chạy CÙNG LÚC RIÊNG BIỆT tất cả các test có.
+Test case bao gồm class và method. Ví dụ 3 testcase run on firefox, chrome, edge sẽ chạy cùng lúc trên 3 browser khác nhau-->
+<!-- thread-count là số lượng test sẽ được khởi chạy cùng lúc, hiện đang có 3 test => thread-count = 3. 
+Có thể đặt thread-count bằng 4,5... cũng được nhưng nó cũng chỉ chạy có 3 test thôi-->
 
-	<parameter name="environment" value="live" />
-	
+	<parameter name="environment" value="live" /> <!-- Biến "environment"" là biến global vì nó access xuyên suốt chương trình -->
 	//Chạy trên firefox
 	<test name="Run on FIREFOX">
-		<parameter name="browser" value="firefox" />
+		<parameter name="browser" value="firefox" /> <!-- Biến "browser"" là biến local vì nó access 1 test thôi, mỗi test dùng 1 biến local-->
 		<classes>
 			<class name="testng.Topic_05_Parameter_Multiple_Environment" />
 		</classes>
@@ -26,6 +27,6 @@
 			<class name="testng.Topic_05_Parameter_Multiple_Environment" />
 		</classes>
 	</test>
-	
-	
+
+
 </suite>
