@@ -13,7 +13,7 @@
 					<include name = "card"/>
 				</run>
 			</groups>
-		
+		<!-- Chạy package (all testcase 1 lúc)-->
 			<packages>
 				<package name = "tiki.admin"/>
 			</packages>
